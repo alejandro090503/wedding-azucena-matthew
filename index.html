@@ -980,6 +980,106 @@ body{
   color:var(--accent);
   margin-top:4px;
 }
+.lluvia-info-wrap{
+  display:flex;
+  justify-content:center;
+  margin-top:18px;
+}
+.lluvia-info-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  padding:11px 26px;
+  background:transparent;
+  border:1.4px solid var(--accent);
+  border-radius:50px;
+  color:var(--accent);
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;
+  font-size:13px;
+  letter-spacing:2.5px;
+  text-transform:uppercase;
+  cursor:pointer;
+  transition:all .35s ease;
+}
+.lluvia-info-btn:hover{
+  background:var(--accent);
+  color:#fff;
+  transform:translateY(-1px);
+  box-shadow:0 6px 18px rgba(154,96,112,.3);
+}
+.lluvia-info-btn:focus-visible{
+  outline:2px solid var(--accent);
+  outline-offset:3px;
+}
+.lluvia-modal-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(20,12,16,.78);
+  -webkit-backdrop-filter:blur(10px);
+  backdrop-filter:blur(10px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:9999;
+  padding:24px;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .35s ease;
+}
+.lluvia-modal-overlay.is-open{
+  opacity:1;
+  pointer-events:auto;
+}
+.lluvia-modal{
+  max-width:440px;
+  width:100%;
+  background:var(--card);
+  border-radius:16px;
+  padding:42px 30px 32px;
+  text-align:center;
+  position:relative;
+  box-shadow:0 30px 80px rgba(0,0,0,.45);
+  transform:translateY(20px) scale(.95);
+  transition:transform .45s cubic-bezier(.2,.7,.3,1.1);
+}
+.lluvia-modal-overlay.is-open .lluvia-modal{
+  transform:translateY(0) scale(1);
+}
+.lluvia-modal-close{
+  position:absolute;
+  top:10px;
+  right:14px;
+  width:34px;
+  height:34px;
+  border:none;
+  background:transparent;
+  color:var(--accent);
+  font-size:26px;
+  line-height:1;
+  cursor:pointer;
+  opacity:.75;
+  transition:opacity .2s ease, transform .2s ease;
+}
+.lluvia-modal-close:hover{
+  opacity:1;
+  transform:rotate(90deg);
+}
+.lluvia-modal-title{
+  font-family:'Great Vibes',cursive;
+  font-size:38px;
+  color:var(--accent);
+  margin:0 0 16px;
+  line-height:1.1;
+}
+.lluvia-modal-text{
+  font-family:'Cormorant Garamond',serif;
+  font-size:16px;
+  line-height:1.75;
+  color:var(--dark);
+  margin:0;
+  opacity:.92;
+}
 
 /* ── FERRIS WHEEL GALLERY ── */
 #galeria{padding:72px 28px;background:var(--bg);text-align:center;overflow:hidden}
@@ -1833,6 +1933,8 @@ body{
           <path d="M6 22 L32 38 L58 22" stroke="#CFA0B2" stroke-width="1.8" fill="none" stroke-linecap="round"/>
           <path d="M6 52 L24 36" stroke="#CFA0B2" stroke-width="1.4" stroke-linecap="round" opacity=".6"/>
           <path d="M58 52 L40 36" stroke="#CFA0B2" stroke-width="1.4" stroke-linecap="round" opacity=".6"/>
+          <circle cx="46" cy="42" r="9" fill="#9A6070" stroke="#FFF7F4" stroke-width="1.4"/>
+          <text x="46" y="46.4" text-anchor="middle" font-family="Georgia, 'Cormorant Garamond', serif" font-weight="700" font-size="13" fill="#FFF7F4">$</text>
         </svg>
       </div>
       <p class="gift-msg">
@@ -1841,6 +1943,9 @@ body{
       </p>
       <div class="gift-divider"></div>
       <p class="lluvia-note">With heartfelt gratitude for your love 💌</p>
+      <div class="lluvia-info-wrap">
+        <button type="button" class="lluvia-info-btn" onclick="openLluviaModal()" aria-haspopup="dialog">What Is It?</button>
+      </div>
     </div>
   </section>
 
@@ -2337,6 +2442,38 @@ function initAll(){
 
 /* ─────────────── ARRANCAR CON EL SOBRE ─────────────── */
 initIntro();
+
+/* ─────────────── LLUVIA — INFO MODAL ─────────────── */
+function openLluviaModal(){
+  var ov = document.getElementById('lluviaModal');
+  if(!ov) return;
+  ov.classList.add('is-open');
+  ov.setAttribute('aria-hidden','false');
+  document.body.style.overflow = 'hidden';
+}
+function closeLluviaModal(){
+  var ov = document.getElementById('lluviaModal');
+  if(!ov) return;
+  ov.classList.remove('is-open');
+  ov.setAttribute('aria-hidden','true');
+  document.body.style.overflow = '';
+}
+document.addEventListener('click', function(e){
+  var ov = document.getElementById('lluviaModal');
+  if(ov && e.target === ov) closeLluviaModal();
+});
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape') closeLluviaModal();
+});
 </script>
+
+<!-- ── LLUVIA INFO MODAL ── -->
+<div class="lluvia-modal-overlay" id="lluviaModal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="lluviaModalTitle">
+  <div class="lluvia-modal" role="document">
+    <button type="button" class="lluvia-modal-close" onclick="closeLluviaModal()" aria-label="Close">&times;</button>
+    <h3 class="lluvia-modal-title" id="lluviaModalTitle">Wishing Well</h3>
+    <p class="lluvia-modal-text">A wishing well is a tradition where guests at an event give cash in an envelope as a gift, instead of a physical present.</p>
+  </div>
+</div>
 </body>
 </html>
