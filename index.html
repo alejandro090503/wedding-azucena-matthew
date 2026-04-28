@@ -1097,6 +1097,79 @@ body{
   opacity:.92;
 }
 
+/* ── HOTEL ACCOMMODATION ── */
+#hotel{padding:72px 28px;text-align:center;background:var(--surface);}
+.hotel-card{
+  max-width:480px;
+  margin:32px auto 0;
+  background:var(--card);
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:0 8px 32px rgba(154,96,112,.15);
+}
+.hotel-carousel-wrap{position:relative;}
+.hotel-carousel{
+  display:flex;
+  overflow-x:scroll;
+  scroll-snap-type:x mandatory;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
+}
+.hotel-carousel::-webkit-scrollbar{display:none;}
+.hotel-slide{min-width:100%;scroll-snap-align:start;flex-shrink:0;}
+.hotel-slide img{width:100%;height:220px;object-fit:cover;display:block;}
+.hotel-dots{
+  display:flex;justify-content:center;gap:6px;
+  padding:10px 0 8px;background:var(--card);
+}
+.hd{
+  width:7px;height:7px;border-radius:50%;
+  background:rgba(154,96,112,.25);border:none;cursor:pointer;padding:0;
+  transition:all .3s ease;
+}
+.hd.active{background:var(--accent);width:18px;border-radius:4px;}
+.hotel-info{padding:20px 24px 26px;text-align:center;}
+.hotel-name{
+  font-family:'Cormorant Garamond',serif;
+  font-size:22px;font-weight:600;
+  color:var(--dark);margin:0 0 14px;
+}
+.hotel-row{
+  display:flex;align-items:flex-start;gap:8px;
+  font-family:'Cormorant Garamond',serif;
+  font-size:15px;color:var(--dark);opacity:.8;
+  margin:0 0 8px;line-height:1.5;text-align:left;
+}
+.hotel-row svg{flex-shrink:0;margin-top:2px;}
+.hotel-map-btn{
+  display:inline-block;margin-top:18px;
+  padding:11px 28px;background:var(--accent);color:#fff;
+  border-radius:50px;font-family:'Cormorant Garamond',serif;
+  font-style:italic;font-size:13px;letter-spacing:2.5px;
+  text-transform:uppercase;text-decoration:none;
+  transition:all .3s ease;
+  box-shadow:0 4px 14px rgba(154,96,112,.3);
+}
+.hotel-map-btn:hover{background:var(--dark);transform:translateY(-1px);}
+/* ── DRESS CODE UPDATED ── */
+.dc-code-wrap{
+  display:flex;flex-direction:column;align-items:center;
+  gap:18px;padding:32px 0 24px;
+}
+.dc-code-label{
+  font-family:'Great Vibes',cursive;
+  font-size:52px;color:var(--dark);line-height:1;
+}
+.dc-white-note{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;font-size:15px;
+  color:var(--accent);text-align:center;line-height:1.6;
+  max-width:290px;padding:14px 18px;
+  border:1px solid rgba(154,96,112,.3);border-radius:14px;
+  background:rgba(154,96,112,.05);
+}
+.dc-white-note svg{flex-shrink:0;opacity:.7;}
 /* ── FERRIS WHEEL GALLERY ── */
 #galeria{padding:72px 28px;background:var(--bg);text-align:center;overflow:hidden}
 .fw-scene{
@@ -1750,6 +1823,44 @@ body{
     </svg>
   </div>
 
+  <!-- ── HOTEL / ALOJAMIENTO ── -->
+  <section id="hotel" class="sec sec--surface">
+    <p class="eyebrow rv">Nearby Accommodation</p>
+    <h2 class="script-title rv">Where to Stay</h2>
+    <div class="hotel-card rv">
+      <div class="hotel-carousel-wrap">
+        <div class="hotel-carousel" id="hotelCarousel">
+          <div class="hotel-slide"><img src="https://ak-d.tripcdn.com/images/0221e12000k3fqgfg2BB9_R_960_660_R5_D.jpg" loading="lazy" alt="Glendale Hotel exterior"/></div>
+          <div class="hotel-slide"><img src="https://ak-d.tripcdn.com/images/0224r12000l5krsi0CF04_R_339_206_R5_D.jpg" loading="lazy" alt="Glendale Hotel room"/></div>
+          <div class="hotel-slide"><img src="https://ak-d.tripcdn.com/images/0226l12000l5krcbo15F4_R_339_206_R5_D.jpg" loading="lazy" alt="Glendale Hotel room"/></div>
+          <div class="hotel-slide"><img src="https://ak-d.tripcdn.com/images/0224y12000k6vbzy029C3_R_339_206_R5_D.jpg" loading="lazy" alt="Glendale Hotel amenities"/></div>
+          <div class="hotel-slide"><img src="https://ak-d.tripcdn.com/images/0580112000msddn6s74C1_R_339_206_R5_D.jpg" loading="lazy" alt="Glendale Hotel room"/></div>
+          <div class="hotel-slide"><img src="https://ak-d.tripcdn.com/images/0586e12000k6g4qov89FD_R_339_206_R5_D.jpg" loading="lazy" alt="Glendale Hotel bathroom"/></div>
+        </div>
+        <div class="hotel-dots" id="hotelDots">
+          <button class="hd active" data-idx="0"></button>
+          <button class="hd" data-idx="1"></button>
+          <button class="hd" data-idx="2"></button>
+          <button class="hd" data-idx="3"></button>
+          <button class="hd" data-idx="4"></button>
+          <button class="hd" data-idx="5"></button>
+        </div>
+      </div>
+      <div class="hotel-info">
+        <h3 class="hotel-name">Glendale Hotel</h3>
+        <p class="hotel-row">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#CFA0B2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          1510 E Colorado St, Glendale, CA 91205
+        </p>
+        <p class="hotel-row">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#CFA0B2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.38 2 2 0 0 1 3.58 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.54a16 16 0 0 0 6 6l.92-.9a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          (818) 507-6688
+        </p>
+        <a class="hotel-map-btn" href="https://maps.google.com/?q=Glendale+Hotel+1510+E+Colorado+St+Glendale+CA+91205" target="_blank" rel="noopener noreferrer">View on Maps</a>
+      </div>
+    </div>
+  </section>
+
   <!-- ── FAMILIARES ── -->
   <section id="familiares" class="sec sec--surface">
     <p class="eyebrow rv">With the Love of</p>
@@ -1863,17 +1974,14 @@ body{
   <section id="dresscode" class="sec sec--surface">
     <p class="eyebrow rv">Attire</p>
     <h2 class="script-title rv">Dress Code</h2>
-    <div class="dc-pending-wrap rv">
-      <div class="dc-pending-icon">
-        <svg viewBox="0 0 60 60" fill="none" width="56" height="56">
-          <circle cx="30" cy="30" r="28" stroke="#CFA0B2" stroke-width="1.2" opacity=".4"/>
-          <path d="M20 38 C20 38 22 28 30 26 C38 24 40 32 40 32" stroke="#CFA0B2" stroke-width="1.4" fill="none" opacity=".7"/>
-          <path d="M24 30 C24 24 30 20 36 22" stroke="#F5C8B0" stroke-width="1.2" fill="none" opacity=".6"/>
-          <circle cx="30" cy="30" r="3" fill="#CFA0B2" opacity=".5"/>
+    <div class="dc-code-wrap rv">
+      <p class="dc-code-label">Semi Formal</p>
+      <p class="dc-white-note">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#CFA0B2" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
         </svg>
-      </div>
-      <p class="dc-pending-title">Coming Soon</p>
-      <p class="dc-pending-sub">We'll share all the dress code<br>details soon.</p>
+        We kindly reserve the color white for the bride
+      </p>
     </div>
 
     <div class="no-kids rv">
@@ -2452,6 +2560,27 @@ function initAll(){
 
 /* ─────────────── ARRANCAR CON EL SOBRE ─────────────── */
 initIntro();
+
+/* ─────────────── HOTEL CAROUSEL ─────────────── */
+(function(){
+  var car = document.getElementById('hotelCarousel');
+  var dots = document.querySelectorAll('#hotelDots .hd');
+  if(!car || !dots.length) return;
+  var updating = false;
+  car.addEventListener('scroll', function(){
+    if(updating) return;
+    var idx = Math.round(car.scrollLeft / car.offsetWidth);
+    dots.forEach(function(d,i){ d.classList.toggle('active', i===idx); });
+  });
+  dots.forEach(function(d,i){
+    d.addEventListener('click', function(){
+      updating = true;
+      car.scrollTo({left: i * car.offsetWidth, behavior:'smooth'});
+      dots.forEach(function(d2,j){ d2.classList.toggle('active', j===i); });
+      setTimeout(function(){ updating = false; }, 500);
+    });
+  });
+})();
 
 /* ─────────────── LLUVIA — INFO MODAL ─────────────── */
 function openLluviaModal(){
