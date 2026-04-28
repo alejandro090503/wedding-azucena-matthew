@@ -985,6 +985,16 @@ body{
   justify-content:center;
   margin-top:18px;
 }
+@keyframes lluviaBreath{
+  0%,100%{
+    transform:scale(1);
+    box-shadow:0 0 0 0 rgba(154,96,112,.45), 0 4px 12px rgba(154,96,112,.15);
+  }
+  50%{
+    transform:scale(1.045);
+    box-shadow:0 0 0 14px rgba(154,96,112,0), 0 8px 22px rgba(154,96,112,.28);
+  }
+}
 .lluvia-info-btn{
   display:inline-flex;
   align-items:center;
@@ -1000,17 +1010,23 @@ body{
   letter-spacing:2.5px;
   text-transform:uppercase;
   cursor:pointer;
-  transition:all .35s ease;
+  transition:background .35s ease, color .35s ease;
+  animation:lluviaBreath 2.6s ease-in-out infinite;
+  will-change:transform, box-shadow;
 }
 .lluvia-info-btn:hover{
   background:var(--accent);
   color:#fff;
-  transform:translateY(-1px);
-  box-shadow:0 6px 18px rgba(154,96,112,.3);
+  animation-play-state:paused;
+  transform:scale(1.05);
+  box-shadow:0 8px 22px rgba(154,96,112,.35);
 }
 .lluvia-info-btn:focus-visible{
   outline:2px solid var(--accent);
   outline-offset:3px;
+}
+@media (prefers-reduced-motion: reduce){
+  .lluvia-info-btn{animation:none;}
 }
 .lluvia-modal-overlay{
   position:fixed;
@@ -1937,12 +1953,6 @@ body{
           <text x="46" y="46.4" text-anchor="middle" font-family="Georgia, 'Cormorant Garamond', serif" font-weight="700" font-size="13" fill="#FFF7F4">$</text>
         </svg>
       </div>
-      <p class="gift-msg">
-        Your presence by our side is the most precious gift we could receive.<br><br>
-        If you wish to celebrate this moment with a gift, we lovingly let you know that we've chosen a <em>wishing well</em> to begin this beautiful new chapter together.
-      </p>
-      <div class="gift-divider"></div>
-      <p class="lluvia-note">With heartfelt gratitude for your love 💌</p>
       <div class="lluvia-info-wrap">
         <button type="button" class="lluvia-info-btn" onclick="openLluviaModal()" aria-haspopup="dialog">What Is It?</button>
       </div>
