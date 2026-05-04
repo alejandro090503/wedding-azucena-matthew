@@ -1097,6 +1097,32 @@ body{
   opacity:.92;
 }
 
+/* ── SALON CAROUSEL ── */
+.salon-carousel-wrap{position:relative;margin-top:24px;}
+.salon-carousel{
+  display:flex;
+  overflow-x:scroll;
+  scroll-snap-type:x mandatory;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
+  border-radius:14px;
+}
+.salon-carousel::-webkit-scrollbar{display:none;}
+.salon-slide{min-width:100%;scroll-snap-align:start;flex-shrink:0;}
+.salon-slide img{width:100%;height:220px;object-fit:cover;display:block;}
+.salon-dots{display:flex;justify-content:center;gap:6px;padding:10px 0 4px;}
+.sd{
+  width:7px;height:7px;border-radius:50%;
+  background:rgba(154,96,112,.25);border:none;cursor:pointer;padding:0;
+  transition:all .3s ease;
+}
+.sd.active{background:var(--accent);width:18px;border-radius:4px;}
+.rsvp-passes-label{
+  font-family:'Cormorant Garamond',serif;
+  font-size:13px;letter-spacing:2px;text-transform:uppercase;
+  color:var(--accent);opacity:.7;margin:0 0 18px;text-align:center;
+}
+
 /* ── HOTEL ACCOMMODATION ── */
 #hotel{padding:72px 28px;text-align:center;background:var(--surface);}
 .hotel-card{
@@ -1783,19 +1809,37 @@ body{
     <p class="eyebrow rv">Where We Celebrate</p>
     <h2 class="script-title rv">Location</h2>
     <div class="loc-card rv">
-      <div class="loc-name">Grand Venue</div>
+      <div class="loc-name">The Garden Room</div>
       <div class="loc-sub">Reception</div>
       <div class="loc-hours">5:00 PM &mdash; 11:00 PM</div>
+
+      <div class="salon-carousel-wrap rv">
+        <div class="salon-carousel" id="salonCarousel">
+          <div class="salon-slide"><img src="salon1.jpeg" loading="lazy" alt="The Garden Room"></div>
+          <div class="salon-slide"><img src="salon2.jpeg" loading="lazy" alt="The Garden Room"></div>
+          <div class="salon-slide"><img src="salon3.jpeg" loading="lazy" alt="The Garden Room"></div>
+          <div class="salon-slide"><img src="salon4.jpeg" loading="lazy" alt="The Garden Room"></div>
+          <div class="salon-slide"><img src="salon5.jpeg" loading="lazy" alt="The Garden Room"></div>
+        </div>
+        <div class="salon-dots" id="salonDots">
+          <button class="sd active" onclick="goSalonSlide(0)"></button>
+          <button class="sd" onclick="goSalonSlide(1)"></button>
+          <button class="sd" onclick="goSalonSlide(2)"></button>
+          <button class="sd" onclick="goSalonSlide(3)"></button>
+          <button class="sd" onclick="goSalonSlide(4)"></button>
+        </div>
+      </div>
+
       <div class="map-embed-wrap rv">
         <iframe
           class="map-embed"
-          src="https://maps.google.com/maps?q=34.1243942,-118.2661382&z=17&output=embed&hl=en"
+          src="https://maps.google.com/maps?q=The+Garden+Room+Long+Beach+CA&z=17&output=embed&hl=en"
           loading="lazy"
           allowfullscreen
           referrerpolicy="no-referrer-when-downgrade">
         </iframe>
       </div>
-      <a href="https://maps.app.goo.gl/1TpiuNVPfYvfhxAJ9"
+      <a href="https://maps.app.goo.gl/xWCtQnV3MCgBQokZ9"
          target="_blank" rel="noopener" class="btn-map">
         <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
         View on Google Maps
@@ -1805,7 +1849,7 @@ body{
     <!-- Calendario integrado dentro de Ubicación -->
     <div class="loc-cal-divider rv"></div>
     <p class="loc-cal-eyebrow rv">Save the special day</p>
-    <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Wedding+Azucena+%26+Matthew&dates=20260522T230000Z/20260523T050000Z&details=Reception+5%3A00+PM+-+11%3A00+PM+at+Grand+Venue&location=Grand+Venue"
+    <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Wedding+Azucena+%26+Matthew&dates=20260522T230000Z/20260523T050000Z&details=Reception+5%3A00+PM+-+11%3A00+PM+at+The+Garden+Room&location=The+Garden+Room+Long+Beach+CA"
        target="_blank" rel="noopener" class="btn-cal rv">
       <svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5C3.89 4 3 4.9 3 6v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v10zM7 11h5v5H7z"/></svg>
       Save to My Calendar
@@ -1830,12 +1874,12 @@ body{
     <div class="hotel-card rv">
       <div class="hotel-carousel-wrap">
         <div class="hotel-carousel" id="hotelCarousel">
-          <div class="hotel-slide"><img src="https://ak-d.tripcdn.com/images/0221e12000k3fqgfg2BB9_R_960_660_R5_D.jpg" loading="lazy" alt="Glendale Hotel exterior"/></div>
-          <div class="hotel-slide"><img src="https://ak-d.tripcdn.com/images/0224r12000l5krsi0CF04_R_339_206_R5_D.jpg" loading="lazy" alt="Glendale Hotel room"/></div>
-          <div class="hotel-slide"><img src="https://ak-d.tripcdn.com/images/0226l12000l5krcbo15F4_R_339_206_R5_D.jpg" loading="lazy" alt="Glendale Hotel room"/></div>
-          <div class="hotel-slide"><img src="https://ak-d.tripcdn.com/images/0224y12000k6vbzy029C3_R_339_206_R5_D.jpg" loading="lazy" alt="Glendale Hotel amenities"/></div>
-          <div class="hotel-slide"><img src="https://ak-d.tripcdn.com/images/0580112000msddn6s74C1_R_339_206_R5_D.jpg" loading="lazy" alt="Glendale Hotel room"/></div>
-          <div class="hotel-slide"><img src="https://ak-d.tripcdn.com/images/0586e12000k6g4qov89FD_R_339_206_R5_D.jpg" loading="lazy" alt="Glendale Hotel bathroom"/></div>
+          <div class="hotel-slide"><img src="hotel1.jpeg" loading="lazy" alt="Residence Inn Long Beach"/></div>
+          <div class="hotel-slide"><img src="hotel2.jpeg" loading="lazy" alt="Residence Inn Long Beach"/></div>
+          <div class="hotel-slide"><img src="hotel3.jpeg" loading="lazy" alt="Residence Inn Long Beach"/></div>
+          <div class="hotel-slide"><img src="hotel4.avif" loading="lazy" alt="Residence Inn Long Beach"/></div>
+          <div class="hotel-slide"><img src="hotel5.jpg" loading="lazy" alt="Residence Inn Long Beach"/></div>
+          <div class="hotel-slide"><img src="hotel6.jpg" loading="lazy" alt="Residence Inn Long Beach"/></div>
         </div>
         <div class="hotel-dots" id="hotelDots">
           <button class="hd active" data-idx="0"></button>
@@ -1847,16 +1891,16 @@ body{
         </div>
       </div>
       <div class="hotel-info">
-        <h3 class="hotel-name">Glendale Hotel</h3>
+        <h3 class="hotel-name">Residence Inn by Marriott Long Beach</h3>
         <p class="hotel-row">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#CFA0B2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          1510 E Colorado St, Glendale, CA 91205
+          4111 East Willow Street, Long Beach, California, USA, 90815
         </p>
         <p class="hotel-row">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#CFA0B2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.38 2 2 0 0 1 3.58 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.54a16 16 0 0 0 6 6l.92-.9a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-          (818) 507-6688
+          +1 562-595-0909
         </p>
-        <a class="hotel-map-btn" href="https://maps.google.com/?q=Glendale+Hotel+1510+E+Colorado+St+Glendale+CA+91205" target="_blank" rel="noopener noreferrer">View on Maps</a>
+        <a class="hotel-map-btn" href="https://www.marriott.com/en-us/hotels/laxbh-residence-inn-long-beach/overview/" target="_blank" rel="noopener noreferrer">Book Hotel</a>
       </div>
     </div>
   </section>
@@ -1907,32 +1951,69 @@ body{
       <div class="itin-spine"></div>
 
       <div class="itin-item itin-row-l">
-        <div class="itin-time">17:00</div>
+        <div class="itin-time">5:00 PM</div>
         <div class="itin-evt">Reception</div>
       </div>
       <div class="itin-dot-col"><div class="itin-dot"></div></div>
       <div></div>
 
       <div></div>
-      <div class="itin-dot-col"><div class="itin-dot itin-dot--pending"></div></div>
-      <div class="itin-item itin-item--r itin-row-r itin-pending">
-        <div class="itin-evt-pending">Coming Soon</div>
-      </div>
-
-      <div class="itin-item itin-row-l itin-pending">
-        <div class="itin-evt-pending">Coming Soon</div>
-      </div>
-      <div class="itin-dot-col"><div class="itin-dot itin-dot--pending"></div></div>
-      <div></div>
-
-      <div></div>
-      <div class="itin-dot-col"><div class="itin-dot itin-dot--pending"></div></div>
-      <div class="itin-item itin-item--r itin-row-r itin-pending">
-        <div class="itin-evt-pending">Coming Soon</div>
+      <div class="itin-dot-col"><div class="itin-dot"></div></div>
+      <div class="itin-item itin-item--r itin-row-r">
+        <div class="itin-time">5:00 – 6:00 PM</div>
+        <div class="itin-evt">Cocktail Hour</div>
       </div>
 
       <div class="itin-item itin-row-l">
-        <div class="itin-time">23:00</div>
+        <div class="itin-time">6:30 – 8:00 PM</div>
+        <div class="itin-evt">Dinner</div>
+      </div>
+      <div class="itin-dot-col"><div class="itin-dot"></div></div>
+      <div></div>
+
+      <div></div>
+      <div class="itin-dot-col"><div class="itin-dot"></div></div>
+      <div class="itin-item itin-item--r itin-row-r">
+        <div class="itin-time">7:30 PM</div>
+        <div class="itin-evt">Couple's First Dance</div>
+      </div>
+
+      <div class="itin-item itin-row-l">
+        <div class="itin-time">7:35 PM</div>
+        <div class="itin-evt">Parents' Dance</div>
+      </div>
+      <div class="itin-dot-col"><div class="itin-dot"></div></div>
+      <div></div>
+
+      <div></div>
+      <div class="itin-dot-col"><div class="itin-dot"></div></div>
+      <div class="itin-item itin-item--r itin-row-r">
+        <div class="itin-time">7:45 PM</div>
+        <div class="itin-evt">Dollar Dance</div>
+      </div>
+
+      <div class="itin-item itin-row-l">
+        <div class="itin-time">8:00 PM</div>
+        <div class="itin-evt">Toast</div>
+      </div>
+      <div class="itin-dot-col"><div class="itin-dot"></div></div>
+      <div></div>
+
+      <div></div>
+      <div class="itin-dot-col"><div class="itin-dot"></div></div>
+      <div class="itin-item itin-item--r itin-row-r">
+        <div class="itin-time">9:00 PM</div>
+        <div class="itin-evt">Wedding Cake</div>
+      </div>
+
+      <div class="itin-item itin-row-l">
+        <div class="itin-evt">🍸 Open Bar All Night</div>
+      </div>
+      <div class="itin-dot-col"><div class="itin-dot"></div></div>
+      <div></div>
+
+      <div class="itin-item itin-row-l">
+        <div class="itin-time">11:00 PM</div>
         <div class="itin-evt">End</div>
       </div>
       <div class="itin-dot-col"><div class="itin-dot"></div></div>
@@ -2138,16 +2219,14 @@ body{
     <h2 class="script-title rv">R.S.V.P.</h2>
     <p class="rsvp-note rv">RSVP by: May 20, 2026</p>
 
-    <div class="rsvp-card rv">
-      <div class="rsvp-field">
-        <label for="rsvpName">Full name</label>
-        <input type="text" id="rsvpName" placeholder="Your full name" autocomplete="name">
-      </div>
+    <div class="rsvp-card rv" id="rsvpCard">
+      <p class="rsvp-passes-label" id="rsvpPassesLabel"></p>
+      <div id="rsvpNamesWrap"></div>
       <div class="rsvp-field">
         <label for="rsvpAttend">Will you attend?</label>
         <select id="rsvpAttend">
           <option value="Yes, with pleasure 🌸">Yes, with pleasure 🌸</option>
-          <option value="Sorry, I can't make it">Sorry, I can't make it</option>
+          <option value="Sorry, we can't make it">Sorry, we can't make it</option>
         </select>
       </div>
       <div class="rsvp-field">
@@ -2155,8 +2234,8 @@ body{
         <textarea id="rsvpMsg" placeholder="Write something special for Azucena &amp; Matthew…"></textarea>
       </div>
       <button class="btn-wa" onclick="sendRsvp()">
-        <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>
-        Confirm by Text Message
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.165-.008-.35-.01-.534-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.559 4.122 1.535 5.858L0 24l6.335-1.513A11.94 11.94 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.795 9.795 0 0 1-5.003-1.374l-.359-.213-3.724.889.923-3.614-.234-.373A9.773 9.773 0 0 1 2.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
+        Confirm via WhatsApp
       </button>
     </div>
   </section>
@@ -2377,22 +2456,38 @@ function initIntro(){
 })();
 
 /* ─────────────── RSVP → WHATSAPP ─────────────── */
+/* ── RSVP dinámico por pases ── */
+(function(){
+  const params = new URLSearchParams(window.location.search);
+  const pases  = Math.min(Math.max(parseInt(params.get('pases')) || 1, 1), 5);
+  const label  = document.getElementById('rsvpPassesLabel');
+  const wrap   = document.getElementById('rsvpNamesWrap');
+  if(label) label.textContent = pases === 1 ? '1 pass' : pases + ' passes';
+  if(wrap){
+    const labels = ['Full name','Guest 1 name','Guest 2 name','Guest 3 name','Guest 4 name'];
+    for(let i=0;i<pases;i++){
+      const div = document.createElement('div');
+      div.className = 'rsvp-field';
+      div.innerHTML = `<label for="rsvpName${i}">${labels[i]}</label><input type="text" id="rsvpName${i}" placeholder="${labels[i]}" autocomplete="${i===0?'name':'off'}">`;
+      wrap.appendChild(div);
+    }
+  }
+})();
+
 function sendRsvp(){
-  const name    = document.getElementById('rsvpName').value.trim() || '(no name)';
+  const params  = new URLSearchParams(window.location.search);
+  const pases   = Math.min(Math.max(parseInt(params.get('pases')) || 1, 1), 5);
   const attend  = document.getElementById('rsvpAttend').value;
-  const message = document.getElementById('rsvpMsg').value.trim()  || '—';
-
-  const text = [
-    'Hi Azucena & Matthew! 🌸',
-    '',
-    `Name: ${name}`,
-    `Attending: ${attend}`,
-    `Message: ${message}`
-  ].join('\n');
-
-  // TODO: Replace +10000000000 with the groom's phone number when provided
-  const groomPhone = '+10000000000';
-  window.location.href = 'sms:' + groomPhone + '?&body=' + encodeURIComponent(text);
+  const message = document.getElementById('rsvpMsg').value.trim() || '—';
+  const names   = [];
+  for(let i=0;i<pases;i++){
+    const v = document.getElementById('rsvpName'+i);
+    names.push((v && v.value.trim()) || '(no name)');
+  }
+  const lines = ['Hi Azucena & Matthew! 🌸','',`Passes: ${pases}`,`Attending: ${attend}`];
+  names.forEach((n,i)=>lines.push(`${i===0?'Name':'Guest '+(i)}: ${n}`));
+  lines.push(`Message: ${message}`);
+  window.open('https://wa.me/12135671823?text=' + encodeURIComponent(lines.join('\n')), '_blank');
 }
 
 /* ─────────────── ANIMACIONES (post-loader) ─────────────── */
@@ -2560,6 +2655,32 @@ function initAll(){
 
 /* ─────────────── ARRANCAR CON EL SOBRE ─────────────── */
 initIntro();
+
+/* ─────────────── SALON CAROUSEL ─────────────── */
+(function(){
+  var car = document.getElementById('salonCarousel');
+  var dots = document.querySelectorAll('#salonDots .sd');
+  if(!car || !dots.length) return;
+  var updating = false;
+  car.addEventListener('scroll', function(){
+    if(updating) return;
+    var idx = Math.round(car.scrollLeft / car.offsetWidth);
+    dots.forEach(function(d,i){ d.classList.toggle('active', i===idx); });
+  });
+  dots.forEach(function(d,i){
+    d.addEventListener('click', function(){
+      updating = true;
+      car.scrollTo({left: i * car.offsetWidth, behavior:'smooth'});
+      dots.forEach(function(d2,j){ d2.classList.toggle('active', j===i); });
+      setTimeout(function(){ updating = false; }, 500);
+    });
+  });
+})();
+
+function goSalonSlide(i){
+  var car = document.getElementById('salonCarousel');
+  if(car) car.scrollTo({left: i * car.offsetWidth, behavior:'smooth'});
+}
 
 /* ─────────────── HOTEL CAROUSEL ─────────────── */
 (function(){
