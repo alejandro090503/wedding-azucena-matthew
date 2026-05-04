@@ -2485,6 +2485,24 @@ function initIntro(){
 })();
 
 /* ─────────────── RSVP → WHATSAPP ─────────────── */
+/* ── LIGHTBOX GLOBAL ── */
+function openLightbox(src, alt){
+  var lb  = document.getElementById('lightbox');
+  var img = document.getElementById('lbImg');
+  if(!lb || !img) return;
+  img.src = src; img.alt = alt || '';
+  lb.classList.add('lb-active');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox(){
+  var lb  = document.getElementById('lightbox');
+  var img = document.getElementById('lbImg');
+  if(!lb) return;
+  lb.classList.remove('lb-active');
+  document.body.style.overflow = '';
+  setTimeout(function(){ if(img) img.src = ''; }, 400);
+}
+
 /* ── RSVP guest counter ── */
 var _guests = 0;
 function changeGuests(delta){
