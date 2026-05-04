@@ -1109,7 +1109,7 @@ body{
 }
 .salon-carousel::-webkit-scrollbar{display:none;}
 .salon-slide{min-width:100%;scroll-snap-align:start;flex-shrink:0;}
-.salon-slide img{width:100%;height:220px;object-fit:cover;display:block;}
+.salon-slide img{width:100%;height:220px;object-fit:contain;display:block;background:#111;}
 .salon-dots{display:flex;justify-content:center;gap:6px;padding:10px 0 4px;}
 .sd{
   width:7px;height:7px;border-radius:50%;
@@ -1162,7 +1162,7 @@ body{
 }
 .hotel-carousel::-webkit-scrollbar{display:none;}
 .hotel-slide{min-width:100%;scroll-snap-align:start;flex-shrink:0;}
-.hotel-slide img{width:100%;height:220px;object-fit:cover;display:block;}
+.hotel-slide img{width:100%;height:220px;object-fit:contain;display:block;background:#111;}
 .hotel-dots{
   display:flex;justify-content:center;gap:6px;
   padding:10px 0 8px;background:var(--card);
@@ -2697,52 +2697,42 @@ function initAll(){
 /* ─────────────── ARRANCAR CON EL SOBRE ─────────────── */
 initIntro();
 
-/* ─────────────── SALON CAROUSEL ─────────────── */
-(function(){
-  var car = document.getElementById('salonCarousel');
-  var dots = document.querySelectorAll('#salonDots .sd');
-  if(!car || !dots.length) return;
-  var updating = false;
-  car.addEventListener('scroll', function(){
-    if(updating) return;
-    var idx = Math.round(car.scrollLeft / car.offsetWidth);
-    dots.forEach(function(d,i){ d.classList.toggle('active', i===idx); });
-  });
-  dots.forEach(function(d,i){
-    d.addEventListener('click', function(){
-      updating = true;
-      car.scrollTo({left: i * car.offsetWidth, behavior:'smooth'});
-      dots.forEach(function(d2,j){ d2.classList.toggle('active', j===i); });
-      setTimeout(function(){ updating = false; }, 500);
-    });
-  });
-})();
+/* ─────────────── AUTO-CAROUSEL HELPER ─────────────── */
+function makeAutoCarousel(carId, dotsSelector, dotClass, interval){
+  var car  = document.getElementById(carId);
+  var dots = document.querySelectorAll(dotsSelector);
+  if(!car) return;
+  var total   = car.children.length;
+  var current = 0;
+  var timer;
 
-function goSalonSlide(i){
-  var car = document.getElementById('salonCarousel');
-  if(car) car.scrollTo({left: i * car.offsetWidth, behavior:'smooth'});
+  function goTo(i){
+    current = (i + total) % total;
+    car.scrollTo({left: current * car.offsetWidth, behavior:'smooth'});
+    dots.forEach(function(d,j){ d.classList.toggle('active', j===current); });
+  }
+
+  function startAuto(){
+    clearInterval(timer);
+    timer = setInterval(function(){ goTo(current + 1); }, interval);
+  }
+
+  car.addEventListener('touchstart', function(){ clearInterval(timer); }, {passive:true});
+  car.addEventListener('touchend',   function(){ startAuto(); },          {passive:true});
+
+  dots.forEach(function(d,i){
+    d.addEventListener('click', function(){ goTo(i); startAuto(); });
+  });
+
+  startAuto();
+  return goTo;
 }
 
+/* ─────────────── SALON CAROUSEL ─────────────── */
+var goSalonSlide = makeAutoCarousel('salonCarousel','#salonDots .sd','sd', 3000) || function(){};
+
 /* ─────────────── HOTEL CAROUSEL ─────────────── */
-(function(){
-  var car = document.getElementById('hotelCarousel');
-  var dots = document.querySelectorAll('#hotelDots .hd');
-  if(!car || !dots.length) return;
-  var updating = false;
-  car.addEventListener('scroll', function(){
-    if(updating) return;
-    var idx = Math.round(car.scrollLeft / car.offsetWidth);
-    dots.forEach(function(d,i){ d.classList.toggle('active', i===idx); });
-  });
-  dots.forEach(function(d,i){
-    d.addEventListener('click', function(){
-      updating = true;
-      car.scrollTo({left: i * car.offsetWidth, behavior:'smooth'});
-      dots.forEach(function(d2,j){ d2.classList.toggle('active', j===i); });
-      setTimeout(function(){ updating = false; }, 500);
-    });
-  });
-})();
+makeAutoCarousel('hotelCarousel','#hotelDots .hd','hd', 3500);
 
 /* ─────────────── LLUVIA — INFO MODAL ─────────────── */
 function openLluviaModal(){
